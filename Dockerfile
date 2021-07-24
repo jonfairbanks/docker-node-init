@@ -1,6 +1,6 @@
 FROM node:14-slim
 
-EXPOSE 3000
+EXPOSE 8080
 
 RUN mkdir /app && chown -R node:node /app
 

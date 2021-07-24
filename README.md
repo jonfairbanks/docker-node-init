@@ -39,17 +39,17 @@ Three versions of this image are available to test each scenario:
 
 Base Docker image:
 ```
-docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:latest --restart=always
+docker run -d -p 8080:8080 --name docker-node-init-base jonfairbanks/docker-node-init:latest --restart=always
 ```
 
 PM2 Docker image:
 ```
-docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:latest-pm2 --restart=always
+docker run -d -p 8080:8080 --name docker-node-init-pm2 jonfairbanks/docker-node-init:latest-pm2 --restart=always
 ```
 
 Tini Docker image:
 ```
-docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:latest-tini --restart=always
+docker run -d -p 8080:8080 --name docker-node-init-tini jonfairbanks/docker-node-init:latest-tini --restart=always
 ```
 
 ## Using the App
@@ -64,8 +64,8 @@ To test how a theoretical Node.js app runs in these scenarios, this app exposes 
 
 The following process.env options are supported:
 
-- `PORT` - Override the application port (Default: 3000)
-- `SECS` - Override seconds before process signals are sent (Default: 3)
+- `PORT` - Override the application port (Default: 8080)
+- `SECS` - Override seconds before process signals are sent (Default: 2)
 
 ## Resources
 
