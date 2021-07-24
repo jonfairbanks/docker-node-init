@@ -18,19 +18,19 @@ app.get('/', (_req, res) => {
 app.get('/sigint', (_req, res) => {
 	console.log(`/sigint accessed @ ${new Date()}`)
 	setTimeout(function () { process.kill(process.pid, 'SIGINT') }, ms);
-	res.send(`The app process will be interrupted in ${secs} seconds...`)
+	res.render('sigint', { secs : secs });
 })
 
 app.get('/sigkill', (_req, res) => {
 	console.log(`/sigkill accessed @ ${new Date()}`)
 	setTimeout(function () { process.kill(process.pid, 'SIGKILL') }, ms);
-	res.send(`The app process will be killed in ${secs} seconds...`)
+	res.render('sigkill', { secs : secs });
 })
 
 app.get('/sigterm', (_req, res) => {
 	console.log(`/sigterm accessed @ ${new Date()}`)
 	setTimeout(function () { process.kill(process.pid, 'SIGTERM') }, ms);
-	res.send(`The app process will be terminated in ${secs} seconds...`)
+	res.render('sigterm', { secs : secs });
 })
 
 app.listen(port, () => {
