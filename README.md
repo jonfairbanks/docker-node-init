@@ -65,7 +65,7 @@ To test how a theoretical Node.js app runs in these scenarios, this app exposes 
 The following process.env options are supported:
 
 - `PORT` - Override the application port (Default: 3000)
-- `SECS` - Override seconds before process signals are sent (Default: 3)
+- `SECS` - Override seconds before process signals are sent (Default: 2)
 
 ## Resources
 
