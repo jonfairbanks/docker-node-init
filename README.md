@@ -20,7 +20,7 @@ Similar scenarios may take place when using `pm2 start index.js` within a Docker
 
 ## So what should I use instead?
 
-[tini](https://github.com/krallin/tini)
+👉 [tini](https://github.com/krallin/tini) 👈
 
 From the repo:
 
@@ -32,6 +32,25 @@ In this repository are a few sample Dockerfiles --
 - [Dockerfile](Dockerfile): A barebones Dockerfile which supports exposing a Node.js app; common in online tutorials
 - [Dockerfile-pm2](Dockerfile-pm2): An advanced Dockerfile with environments and security scans, but is using `pm2`
 - [Dockerfile-tini](Dockerfile-tini): A production-ready Dockerfile with environments, security scans and proper `SIG*` handling
+
+## Running with Docker
+
+Three versions of this image are available to test each scenario:
+
+Base Docker image:
+```
+docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:latest
+```
+
+PM2 Docker image:
+```
+docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:latest-pm2
+```
+
+Tini Docker image:
+```
+docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:latest-tini
+```
 
 ## Using the App
 
