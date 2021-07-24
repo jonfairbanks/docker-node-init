@@ -1,4 +1,4 @@
-name: CI to Docker Hub
+name: CI to DockerHub
 
 on:
   push:
@@ -102,8 +102,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ steps.prep.outputs.VERSION }}
+          tag_name: ${{ steps.prep.outputs.VERSION }}
+          release_name: Docker Release v${{ steps.prep.outputs.VERSION }}
+          body: |
+            Launch with `docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }} --restart=always`
           draft: true
           prerelease: false
