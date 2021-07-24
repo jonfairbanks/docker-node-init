@@ -95,3 +95,15 @@ jobs:
 
       - name: Tini Image Digest
         run: echo ${{ steps.docker_build_tini.outputs.digest }}
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: ${{ steps.prep.outputs.VERSION }}
+          draft: true
+          prerelease: false
