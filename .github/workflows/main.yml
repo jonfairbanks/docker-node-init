@@ -16,8 +16,7 @@ jobs:
       - name: Tag Images
         id: prep
         run: |
-            echo ::set-env name=REPO_NAME::${{ github.repository.name }}
-            DOCKER_IMAGE=${REPO_NAME}
+            echo "::set-output name=DOCKER_IMAGE::${{ github.repository.name }}
             VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]'
             TAGS="${DOCKER_IMAGE}:${VERSION}"
             if [[ $VERSION =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
