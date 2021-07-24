@@ -8,9 +8,11 @@ const port = process.env.PORT || 3000
 const secs = process.env.SECS || 2
 const ms   = secs * 1000
 
+app.set('view engine', 'ejs');
+
 app.get('/', (_req, res) => {
 	console.log(`/ accessed @ ${new Date()}`)
-	res.send('Hello from docker-node-init!')
+	res.render('home')
 })
 
 app.get('/sigint', (_req, res) => {
