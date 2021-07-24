@@ -96,6 +96,9 @@ jobs:
           tag_name: ${{ steps.prep.outputs.VERSION }}
           release_name: Docker Release v${{ steps.prep.outputs.VERSION }}
           body: |
-            Launch with `docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }} --restart=always`
-          draft: true
+            The latest version(s) can be launched with:
+              - Base: `docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }} --restart=always`
+              - PM2:  `docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}-pm2 --restart=always`
+              - Tini: `docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}-tini --restart=always`
+          draft: false
           prerelease: false
