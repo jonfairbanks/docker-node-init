@@ -1,8 +1,9 @@
 {
   "name": "docker-node-init",
   "version": "1.0.0",
-  "description": "",
+  "description": "pm2 vs. tini in a Docker env",
   "main": "index.js",
+  "repository": "https://github.com/jonfairbanks/docker-node-init.git",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 0"

@@ -13,17 +13,25 @@ jobs:
       - name: Check Out Repo 
         uses: actions/checkout@v2
         
-      - name: Tag Images
+      - name: Set Image Name and Version
         id: prep
         run: |
             echo "::set-output name=DOCKER_IMAGE::${{ github.repository }}"
             echo "::set-output name=VERSION::$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')"
-            if [[ ${VERSION} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-              TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:latest"
+
+      - name: Set Image Tags
+        id: tag
+        run: |
+            if [[ ${{ steps.prep.outputs.VERSION }} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+              TAGS_BASE="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.prep.outputs.VERSION }},${{ steps.prep.outputs.DOCKER_IMAGE }}:latest"
+              TAGS_PM2="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.prep.outputs.VERSION }}-pm2,${{ steps.prep.outputs.DOCKER_IMAGE }}:latest-pm2"
+              TAGS_TINI="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.prep.outputs.VERSION }}-tini,${{ steps.prep.outputs.DOCKER_IMAGE }}:latest-tini"
             else
-              TAGS="${DOCKER_IMAGE}:${VERSION}"
+              TAGS_BASE="${{ steps.prep.outputs.DOCKER_IMAGE }}:latest"
             fi
-            echo "::set-output name=tags::${TAGS}"
+            echo "::set-output name=tags-base::${TAGS_BASE}"
+            echo "::set-output name=tags-pm2::${TAGS_PM2}"
+            echo "::set-output name=tags-tini::${TAGS_TINI}"
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -51,7 +59,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: ${{ steps.prep.outputs.tags-base }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -63,7 +71,7 @@ jobs:
           context: ./
           file: ./Dockerfile-pm2
           push: true
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: ${{ steps.prep.outputs.tags-pm2 }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -75,7 +83,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: ${{ steps.prep.outputs.tags-tini }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           
