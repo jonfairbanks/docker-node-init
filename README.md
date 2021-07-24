@@ -6,7 +6,7 @@ Although PM2 does a good job of launching process on bare-metal, it is not ideal
 
 ## What's wrong with PM2 & Docker?
 
-When a Node.js process exits, it exits with a particular event:
+When a Node.js process exits, it exits with a particular process event:
 
 - SIGINT
 - SIGTERM
@@ -29,8 +29,8 @@ From the repo:
 ## Example Dockerfiles
 
 In this repository are a few sample Dockerfiles --
-- [Dockerfile](https://github.com/jonfairbanks/docker-node-init/blob/main/Dockerfile): A barebones Dockerfile which supports exposing a Node.js app; common in online tutorials
-- [Dockerfile-pm2](https://github.com/jonfairbanks/docker-node-init/blob/main/Dockerfile-pm2): An advanced Dockerfile with environments and security scans, but is using `pm2`
+- [Dockerfile](Dockerfile): A barebones Dockerfile which supports exposing a Node.js app; common in online tutorials
+- [Dockerfile-pm2](Dockerfile-pm2): An advanced Dockerfile with environments and security scans, but is using `pm2`
 - [Dockerfile-tini](Dockerfile-tini): A production-ready Dockerfile with environments, security scans and proper `SIG*` handling
 
 ## Using the App
