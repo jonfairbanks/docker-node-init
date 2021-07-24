@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/jonfairbanks/docker-node-init.git",
   "scripts": {
-    "start": "node index.js",
+    "start": "clear && node index.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "author": "Jon Fairbanks",

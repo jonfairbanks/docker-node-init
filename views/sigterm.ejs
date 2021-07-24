@@ -3,8 +3,10 @@
         <title>docker-node-init</title>
     </head>
     <body>
-        <h2>docker-node-init</h2>
-        <h3>SIGTERM</h3>
+        <h2>SIGTERM</h2>
+        <% if (secs) { %>
+            <h5>The app process will be terminated in <%= secs %> seconds...</h5>
+        <% } %>
         <a href="/">&#8249; Home</a>
     </body>
 </html>
