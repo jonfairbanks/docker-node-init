@@ -4,6 +4,12 @@
     </head>
     <body>
         <h2>SIGKILL</h2>
+        <p>
+            When a process receives SIGKILL it is terminated. This is a special signal as it can’t be ignored and we can’t change its behavior.
+        </p>
+        <p>
+            We use this signal to forcefully terminate the process. We should be careful as the process won’t be able to execute any clean-up routine.
+        </p>
         <% if (secs) { %>
             <h5>The app process will be killed in <%= secs %> seconds...</h5>
         <% } %>

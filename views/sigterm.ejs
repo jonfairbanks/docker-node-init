@@ -4,6 +4,9 @@
     </head>
     <body>
         <h2>SIGTERM</h2>
+        <p>
+            The SIGTERM signal is meant to terminate the process. When we send SIGTERM, the process sometimes executes a clean-up routine before exiting.
+        </p>
         <% if (secs) { %>
             <h5>The app process will be terminated in <%= secs %> seconds...</h5>
         <% } %>
