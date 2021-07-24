@@ -59,7 +59,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.prep.outputs.tags-base }}
+          tags: ${{ steps.tag.outputs.tags-base }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -71,7 +71,7 @@ jobs:
           context: ./
           file: ./Dockerfile-pm2
           push: true
-          tags: ${{ steps.prep.outputs.tags-pm2 }}
+          tags: ${{ steps.tag.outputs.tags-pm2 }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -83,7 +83,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.prep.outputs.tags-tini }}
+          tags: ${{ steps.tag.outputs.tags-tini }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           
