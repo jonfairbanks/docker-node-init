@@ -21,16 +21,16 @@ app.get('/sigint', (_req, res) => {
 	res.render('sigint', { secs : secs });
 })
 
-app.get('/sigkill', (_req, res) => {
-	console.log(`/sigkill accessed @ ${new Date()}`)
-	setTimeout(function () { process.kill(process.pid, 'SIGKILL') }, ms);
-	res.render('sigkill', { secs : secs });
-})
-
 app.get('/sigterm', (_req, res) => {
 	console.log(`/sigterm accessed @ ${new Date()}`)
 	setTimeout(function () { process.kill(process.pid, 'SIGTERM') }, ms);
 	res.render('sigterm', { secs : secs });
+})
+
+app.get('/sigkill', (_req, res) => {
+	console.log(`/sigkill accessed @ ${new Date()}`)
+	setTimeout(function () { process.kill(process.pid, 'SIGKILL') }, ms);
+	res.render('sigkill', { secs : secs });
 })
 
 app.listen(port, () => {
@@ -39,7 +39,11 @@ app.listen(port, () => {
 
 function handle(signal) {
 	console.log(`Received ${signal} @ ${new Date()}`);
-	process.exitCode
+	if(signal === "SIGINT") {
+		process.exit(0)
+	}else if(signal === "SIGTERM") {
+		process.exit(0)
+	}
 }
 
 process.on('SIGINT', handle);
