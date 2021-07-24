@@ -86,15 +86,6 @@ jobs:
           tags: ${{ steps.tag.outputs.tags-tini }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          
-      - name: Base Image Digest
-        run: echo ${{ steps.docker_build_base.outputs.digest }}
-
-      - name: PM2 Image Digest
-        run: echo ${{ steps.docker_build_pm2.outputs.digest }}
-
-      - name: Tini Image Digest
-        run: echo ${{ steps.docker_build_tini.outputs.digest }}
 
       - name: Create GitHub Release
         id: create_release
