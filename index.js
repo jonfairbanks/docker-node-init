@@ -5,26 +5,27 @@ process.stdin.resume();
 
 const app  = express()
 const port = process.env.PORT || 3000
-const secs = process.env.SECS || 3
+const secs = process.env.SECS || 2
 const ms   = secs * 1000
 
 app.get('/', (_req, res) => {
+	console.log(new Date())
 	res.send('Hello from docker-node-init!')
 })
 
 app.get('/sigint', (_req, res) => {
-	setTimeout(process.kill(process.pid, 'SIGINT'), ms);
-	res.send('The app process will be interupted in ${secs} seconds...')
+	setTimeout(function () { process.kill(process.pid, 'SIGINT') }, ms);
+	res.send(`The app process will be interrupted in ${secs} seconds...`)
 })
 
 app.get('/sigkill', (_req, res) => {
-  setTimeout(process.kill(process.pid, 'SIGKILL'), ms);
-  res.send('The app process will be killed in ${secs} seconds...')
+	setTimeout(function () { process.kill(process.pid, 'SIGKILL') }, ms);
+	res.send(`The app process will be killed in ${secs} seconds...`)
 })
 
 app.get('/sigterm', (_req, res) => {
-	setTimeout(process.kill(process.pid, 'SIGTERM'), ms);
-	res.send('The app process will be terminated in ${secs} seconds...')
+	setTimeout(function () { process.kill(process.pid, 'SIGTERM') }, ms);
+	res.send(`The app process will be terminated in ${secs} seconds...`)
 })
 
 app.listen(port, () => {
@@ -32,7 +33,8 @@ app.listen(port, () => {
 })
 
 function handle(signal) {
-  console.log(`Received ${signal}`);
+	console.log(`Received ${signal}`);
+	process.exitCode
 }
 
 process.on('SIGINT', handle);
