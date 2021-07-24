@@ -39,17 +39,17 @@ Three versions of this image are available to test each scenario:
 
 Base Docker image:
 ```
-docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:latest
+docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:latest --restart=always
 ```
 
 PM2 Docker image:
 ```
-docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:latest-pm2
+docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:latest-pm2 --restart=always
 ```
 
 Tini Docker image:
 ```
-docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:latest-tini
+docker run -d -p 3000:3000 --name docker-node-init jonfairbanks/docker-node-init:latest-tini --restart=always
 ```
 
 ## Using the App
