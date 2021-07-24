@@ -29,9 +29,9 @@ From the repo:
 ## Example Dockerfiles
 
 In this repository are a few sample Dockerfiles --
-- [Dockerfile]():
-- [Dockerfile-pm2]():
-- [Dockerfile-tini]():
+- [Dockerfile](https://github.com/jonfairbanks/docker-node-init/blob/main/Dockerfile): A barebones Dockerfile which supports exposing a Node.js app; common in online tutorials
+- [Dockerfile-pm2](https://github.com/jonfairbanks/docker-node-init/blob/main/Dockerfile-pm2): An advanced Dockerfile with environments and security scans, but is using `pm2`
+- [Dockerfile-tini](Dockerfile-tini): A production-ready Dockerfile with environments, security scans and proper `SIG*` handling
 
 ## Using the App
 
@@ -50,9 +50,9 @@ The following process.env options are supported:
 
 ## Resources
 
-[PM2 GitHub](https://github.com/Unitech/pm2)
-[PM2 Docs](https://pm2.keymetrics.io/docs/usage/quick-start)
-[Process Signal Events](https://nodejs.org/api/process.html#process_signal_events)
-[Process Exit Codes](https://nodejs.org/api/process.html#process_process_exit_code)
-[Tini](https://github.com/krallin/tini)
-[Node.js & Docker Best Practices](https://github.com/BretFisher/dockercon19)
+- [PM2 GitHub](https://github.com/Unitech/pm2)
+- [PM2 Docs](https://pm2.keymetrics.io/docs/usage/quick-start)
+- [Process Signal Events](https://nodejs.org/api/process.html#process_signal_events)
+- [Process Exit Codes](https://nodejs.org/api/process.html#process_process_exit_code)
+- [Tini](https://github.com/krallin/tini)
+- [Node.js & Docker Best Practices](https://github.com/BretFisher/dockercon19)
