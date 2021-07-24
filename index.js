@@ -13,17 +13,17 @@ app.get('/', (_req, res) => {
 })
 
 app.get('/sigint', (_req, res) => {
-	setTimeout(process.kill(process.pid, 'SIGINT'), ms);
-	res.send('The app process will be interupted in ${secs} seconds...')
+	setTimeout(function () { process.kill(process.pid, 'SIGINT') }, ms);
+	res.send('The app process will be interrupted in ${secs} seconds...')
 })
 
 app.get('/sigkill', (_req, res) => {
-  setTimeout(process.kill(process.pid, 'SIGKILL'), ms);
+  setTimeout(function () { process.kill(process.pid, 'SIGKILL') }, ms);
   res.send('The app process will be killed in ${secs} seconds...')
 })
 
 app.get('/sigterm', (_req, res) => {
-	setTimeout(process.kill(process.pid, 'SIGTERM'), ms);
+	setTimeout(function () { process.kill(process.pid, 'SIGTERM') }, ms);
 	res.send('The app process will be terminated in ${secs} seconds...')
 })
 
