@@ -1,12 +1,12 @@
 {
   "name": "docker-node-init",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "pm2 vs. tini in a Docker env",
   "main": "index.js",
   "repository": "https://github.com/jonfairbanks/docker-node-init.git",
   "scripts": {
     "start": "clear && node index.js",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "jest --detectOpenHandles"
   },
   "author": "Jon Fairbanks",
   "license": "GNU",
@@ -14,5 +14,10 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "pm2": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "superagent": "^6.1.0",
+    "supertest": "^6.1.4"
   }
 }
