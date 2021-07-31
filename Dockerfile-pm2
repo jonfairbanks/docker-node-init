@@ -9,7 +9,7 @@ RUN mkdir /app && chown -R node:node /app
 WORKDIR /app
 USER node
 COPY --chown=node:node package*.json ./
-RUN  npm install --no-optional --silent && npm cache clean --force > "/dev/null" 2>&1
+RUN npm install --no-optional --silent && npm install pm2 -g && npm cache clean --force > "/dev/null" 2>&1
 
 # Development ENV
 FROM base as dev
