@@ -4,7 +4,6 @@ const process = require('process')
 process.stdin.resume();
 
 const app  = express()
-const port = process.env.PORT || 8080
 const secs = process.env.SECS || 2
 const ms   = secs * 1000
 
