@@ -97,8 +97,8 @@ jobs:
           release_name: Docker Release v${{ steps.prep.outputs.VERSION }}
           body: |
             The latest version(s) can be launched with:
-              - Base: `docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }} --restart=always`
-              - PM2:  `docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}-pm2 --restart=always`
-              - Tini: `docker run -d -p 8080:8080 --name docker-node-init jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}-tini --restart=always`
+              - Base: `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}`
+              - PM2:  `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}-pm2`
+              - Tini: `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}-tini`
           draft: false
           prerelease: false
