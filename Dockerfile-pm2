@@ -43,4 +43,4 @@ RUN /microscanner $MICROSCANNER_TOKEN --continue-on-failure
 # Production ENV
 FROM source as prod
 #CMD ["./node_modules/pm2/bin/pm2-runtime", "start", "index.js"]
-RUN ./app/node_modules/pm2/bin/pm2 start /app/index.js
+RUN ./node_modules/pm2/bin/pm2 start index.js
