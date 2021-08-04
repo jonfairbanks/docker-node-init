@@ -43,4 +43,4 @@ RUN /microscanner $MICROSCANNER_TOKEN --continue-on-failure
 # Production ENV
 FROM source as prod
 #CMD ["./node_modules/pm2/bin/pm2-runtime", "start", "index.js"]
-RUN ./node_modules/pm2/bin/pm2 start index.js
+CMD ./node_modules/pm2/bin/pm2 --name docker-node-init -o /app/logs/pm2-out.log -e /app/logs/pm2-err.log --no-daemon --node-args="--max-old-space-size=10000" start index.js
