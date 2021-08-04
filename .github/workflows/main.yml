@@ -38,11 +38,11 @@ jobs:
         id: tag
         run: |
             if [[ ${{ steps.update-version.outputs.version }} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-              TAGS_BASE="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.update-version.outputs.version }},${{ steps.prep.outputs.DOCKER_IMAGE }}:latest"
-              TAGS_PM2="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.update-version.outputs.version }}-pm2,${{ steps.prep.outputs.DOCKER_IMAGE }}:latest-pm2"
-              TAGS_TINI="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.update-version.outputs.version }}-tini,${{ steps.prep.outputs.DOCKER_IMAGE }}:latest-tini"
+              TAGS_BASE="${{ github.repository }}:${{ steps.update-version.outputs.version }},${{ github.repository }}:latest"
+              TAGS_PM2="${{ github.repository }}:${{ steps.update-version.outputs.version }}-pm2,${{ github.repository }}:latest-pm2"
+              TAGS_TINI="${{ github.repository }}:${{ steps.update-version.outputs.version }}-tini,${{ github.repository }}:latest-tini"
             else
-              TAGS_BASE="${{ steps.prep.outputs.DOCKER_IMAGE }}:latest"
+              TAGS_BASE="${{ github.repository }}:latest"
             fi
             echo "::set-output name=tags-base::${TAGS_BASE}"
             echo "::set-output name=tags-pm2::${TAGS_PM2}"
@@ -112,8 +112,8 @@ jobs:
           release_name: Docker Release v${{ steps.update-version.outputs.version }}
           body: |
             The latest version(s) can be launched with:
-              - Base: `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.update-version.outputs.version }}`
-              - PM2:  `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.update-version.outputs.version }}-pm2`
-              - Tini: `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.update-version.outputs.version }}-tini`
+              - Base: `docker run -d -p 8080:8080 --name docker-node-init --restart always ${{ github.repository }}:${{ steps.update-version.outputs.version }}`
+              - PM2:  `docker run -d -p 8080:8080 --name docker-node-init --restart always ${{ github.repository }}:${{ steps.update-version.outputs.version }}-pm2`
+              - Tini: `docker run -d -p 8080:8080 --name docker-node-init --restart always ${{ github.repository }}:${{ steps.update-version.outputs.version }}-tini`
           draft: false
           prerelease: false
