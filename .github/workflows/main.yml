@@ -13,19 +13,34 @@ jobs:
       - name: Check Out Repo 
         uses: actions/checkout@v2
         
-      - name: Set Image Name and Version
-        id: prep
+      - name: Update version in version files
+        id: update-version
         run: |
-            echo "::set-output name=DOCKER_IMAGE::${{ github.repository }}"
-            echo "::set-output name=VERSION::$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')"
+          # Bump version
+          npm version --no-git-tag-version patch
+          # Get new bumped version
+          PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+          # Update chart version
+          sed -r -i "s/(version:[^*]|appVersion:[^*])([[:alnum:].]*)/\1$PACKAGE_VERSION/g" ./chart/Chart.yaml
+          # Output new version for other steps
+          echo "::set-output name=version::$PACKAGE_VERSION"
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7.2.1
+        with:
+          message: "v${{ steps.update-version.outputs.version }}"
+          tag: "${{ steps.get-version.outputs.version }}"
+          push: "origin master --force"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set Image Tags
         id: tag
         run: |
-            if [[ ${{ steps.prep.outputs.VERSION }} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-              TAGS_BASE="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.prep.outputs.VERSION }},${{ steps.prep.outputs.DOCKER_IMAGE }}:latest"
-              TAGS_PM2="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.prep.outputs.VERSION }}-pm2,${{ steps.prep.outputs.DOCKER_IMAGE }}:latest-pm2"
-              TAGS_TINI="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.prep.outputs.VERSION }}-tini,${{ steps.prep.outputs.DOCKER_IMAGE }}:latest-tini"
+            if [[ ${{ steps.update-version.outputs.version }} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+              TAGS_BASE="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.update-version.outputs.version }},${{ steps.prep.outputs.DOCKER_IMAGE }}:latest"
+              TAGS_PM2="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.update-version.outputs.version }}-pm2,${{ steps.prep.outputs.DOCKER_IMAGE }}:latest-pm2"
+              TAGS_TINI="${{ steps.prep.outputs.DOCKER_IMAGE }}:${{ steps.update-version.outputs.version }}-tini,${{ steps.prep.outputs.DOCKER_IMAGE }}:latest-tini"
             else
               TAGS_BASE="${{ steps.prep.outputs.DOCKER_IMAGE }}:latest"
             fi
@@ -93,12 +108,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.prep.outputs.VERSION }}
-          release_name: Docker Release v${{ steps.prep.outputs.VERSION }}
+          tag_name: ${{ steps.update-version.outputs.version }}
+          release_name: Docker Release v${{ steps.update-version.outputs.version }}
           body: |
             The latest version(s) can be launched with:
-              - Base: `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}`
-              - PM2:  `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}-pm2`
-              - Tini: `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.prep.outputs.VERSION }}-tini`
+              - Base: `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.update-version.outputs.version }}`
+              - PM2:  `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.update-version.outputs.version }}-pm2`
+              - Tini: `docker run -d -p 8080:8080 --name docker-node-init --restart always jonfairbanks/docker-node-init:${{ steps.update-version.outputs.version }}-tini`
           draft: false
           prerelease: false
