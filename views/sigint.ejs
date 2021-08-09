@@ -1,15 +1,17 @@
 <html>
-    <head>
-        <title>docker-node-init</title>
-    </head>
-    <body>
-        <h2>SIGINT</h2>
-        <p>
-            SIGINT is the signal sent when we press Ctrl+C. The default action is to terminate the process. However, some programs override this action and handle it differently.
-        </p>
-        <% if (secs) { %>
-            <h5>The app process will be interrupted in <%= secs %> seconds...</h5>
-        <% } %>
-        <a href="/">&#8249; Home</a>
-    </body>
+  <head>
+    <title>docker-node-init</title>
+  </head>
+  <body>
+    <h2>SIGINT</h2>
+    <p>
+      SIGINT is the signal sent when we press Ctrl+C. The default action is to
+      terminate the process. However, some programs override this action and
+      handle it differently.
+    </p>
+    <% if (secs) { %>
+    <h5>The app process will be interrupted in <%= secs %> seconds...</h5>
+    <% } %>
+    <a href="/">&#8249; Home</a>
+  </body>
 </html>
