@@ -1,8 +1,15 @@
 # docker-node-init
 
-PM2 is a very popular application used to launch Node.js (and other scripts) in a production fashion. 
+![GitHub Workflow Status](<https://img.shields.io/github/workflow/status/jonfairbanks/docker-node-init/Create%20Release(s)?label=Docker%20Build>)
+![GitHub top language](https://img.shields.io/github/languages/top/jonfairbanks/docker-node-init.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/jonfairbanks/docker-node-init.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/jonfairbanks/docker-node-init.svg)
+![Lines of code](https://img.shields.io/tokei/lines/github/jonfairbanks/docker-node-init)
+![License](https://img.shields.io/github/license/jonfairbanks/docker-node-init.svg?style=flat)
 
-Although PM2 does a good job of launching process on bare-metal, it is not ideal in a Docker environment. 
+PM2 is a very popular application used to launch Node.js (and other scripts) in a production fashion.
+
+Although PM2 does a good job of launching process on bare-metal, it is not ideal in a Docker environment.
 
 ## What's wrong with PM2 & Docker?
 
@@ -12,7 +19,7 @@ When a Node.js process exits, it exits with a particular process event:
 - SIGTERM
 - SIGKILL
 
-If the Node script is started with `npm start` for example, these events may not be properly exposed to the parent process(es) allowing error handling to take place. 
+If the Node script is started with `npm start` for example, these events may not be properly exposed to the parent process(es) allowing error handling to take place.
 
 Similar scenarios may take place when using `pm2 start index.js` within a Docker container. If a `SIG*` event is thrown, the event may be swallowed by `npm` or `pm2`.
 
@@ -29,6 +36,7 @@ From the repo:
 ## Example Dockerfiles
 
 In this repository are a few sample Dockerfiles --
+
 - [Dockerfile](Dockerfile): A barebones Dockerfile which supports exposing a Node.js app; common in online tutorials
 - [Dockerfile-pm2](Dockerfile-pm2): An advanced Dockerfile with environments and security scans, but is using `pm2`
 - [Dockerfile-tini](Dockerfile-tini): A production-ready Dockerfile with environments, security scans and proper `SIG*` handling
@@ -38,16 +46,19 @@ In this repository are a few sample Dockerfiles --
 Three versions of this image are available to test each scenario:
 
 Base Docker image:
+
 ```
 docker run -d -p 8080:8080 --name docker-node-init-base jonfairbanks/docker-node-init:latest --restart=always
 ```
 
 PM2 Docker image:
+
 ```
 docker run -d -p 8080:8080 --name docker-node-init-pm2 jonfairbanks/docker-node-init:latest-pm2 --restart=always
 ```
 
 Tini Docker image:
+
 ```
 docker run -d -p 8080:8080 --name docker-node-init-tini jonfairbanks/docker-node-init:latest-tini --restart=always
 ```
@@ -55,6 +66,7 @@ docker run -d -p 8080:8080 --name docker-node-init-tini jonfairbanks/docker-node
 ## Using the App
 
 To test how a theoretical Node.js app runs in these scenarios, this app exposes a few endpoints to test with:
+
 - [/](#): Landing page
 - [/sigint](#): Sends the app process a `SIGINT` signal after X seconds
 - [/sigkill](#): Sends the app process a `SIGKILL` signal after X seconds
