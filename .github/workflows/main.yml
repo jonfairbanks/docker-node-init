@@ -34,7 +34,7 @@ jobs:
         with:
           message: 'v${{ steps.update-versions.outputs.version }}'
           tag: '${{ steps.get-version.outputs.version }}'
-          push: 'origin main --force'
+          push: 'origin ${{ github.event.repository.default_branch }} --force'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
