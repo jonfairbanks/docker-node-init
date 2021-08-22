@@ -1,6 +1,6 @@
 {
   "name": "docker-node-init",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "pm2 vs. tini in a Docker env",
   "main": "index.js",
   "repository": "https://github.com/jonfairbanks/docker-node-init.git",
